@@ -3,4 +3,7 @@ export interface InputSpec {
   title: string;
   placeholder: string;
   isRequired: boolean;
+  register: any;
+  name: string;
+  error: any;
 }
