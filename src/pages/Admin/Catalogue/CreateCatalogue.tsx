@@ -1,7 +1,13 @@
 import React from "react";
 import Input from "../../../components/common/Input";
+import { useForm } from "react-hook-form";
 
 const CreateCatalogue = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   return (
     <div className="w-1/2 mx-auto">
       <h2 className="text-2xl font-semibold ">Create Catalogue</h2>
@@ -12,16 +18,29 @@ const CreateCatalogue = () => {
             type="text"
             isRequired={true}
             placeholder="name"
+            register={register}
+            name={"name"}
+            error={errors.name}
           />
           <Input
             title="Price"
             type="number"
             isRequired={true}
             placeholder="00000"
+            register={register}
+            name={"price"}
+            error={errors.price}
           />
         </div>
         <div className="grid grid-cols-2 gap-2 mt-2">
-          <Input title="Date" type="date" isRequired={true} />
+          <Input
+            title="Date"
+            type="date"
+            isRequired={true}
+            register={register}
+            name={"price"}
+            error={errors.price}
+          />
           <div className="">
             <div className=" mr-2 font-semibold">
               Category<span className="text-red-600">*</span>
