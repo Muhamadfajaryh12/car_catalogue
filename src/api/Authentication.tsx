@@ -1,9 +1,10 @@
 import axios from "axios";
+import { AuthSpec } from "../types/AuthSpec";
 
 const AuthenticationAPI = (() => {
   const BASE_URL = "http://localhost:8080/api/user";
 
-  const login = async ({ username, password }) => {
+  const login = async ({ username, password }: AuthSpec) => {
     try {
       const response = await axios.post(
         `http://localhost:8080/api/user/login`,
@@ -15,21 +16,19 @@ const AuthenticationAPI = (() => {
 
       return response;
     } catch (error) {
-      console.log(error);
       return error;
     }
   };
 
-  const register = async ({ username, password }) => {
+  const register = async ({ username, password }: AuthSpec) => {
     try {
       const response = await axios.post(`${BASE_URL}/register`, {
         username,
         password,
       });
-      console.log(response);
       return response;
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 

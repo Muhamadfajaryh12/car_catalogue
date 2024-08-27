@@ -1,4 +1,4 @@
-import { ActionLogin, createActionLogin } from "../Auth/action";
+import { createActionLogin } from "../Auth/action";
 
 const ActionType = {
   SET_IS_PRELOAD: "SET_IS_PRELOAD",
