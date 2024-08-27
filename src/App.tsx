@@ -9,6 +9,7 @@ import Register from "./pages/Auth/Register";
 import PrivateRoute from "./router/PrivateRoute";
 
 import PublicRoute from "./router/PublicRoute";
+import AdminLayout from "./components/layout/AdminLayout";
 
 function App() {
   return (
@@ -16,9 +17,18 @@ function App() {
       <Router>
         <Routes>
           <Route element={<PrivateRoute />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/create_catalogue" element={<CreateCatalogue />} />
-            <Route path="/create_category" element={<CreateCategory />} />
+            <Route
+              path="/dashboard"
+              element={<AdminLayout content={<Dashboard />} />}
+            />
+            <Route
+              path="/create_catalogue"
+              element={<AdminLayout content={<CreateCatalogue />} />}
+            />
+            <Route
+              path="/create_category"
+              element={<AdminLayout content={<CreateCategory />} />}
+            />
           </Route>
           <Route path="/" element={<Catalog />} />
           <Route element={<PublicRoute />}>

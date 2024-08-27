@@ -1,7 +1,31 @@
-import React from "react";
-import AdminLayout from "../../components/layout/AdminLayout";
+import React, { useEffect, useState } from "react";
+import Table from "../../components/Table";
+import CategoryAPI from "../../api/CategoryAPI";
 
-const content = () => {
+const Dashboard = () => {
+  const [dataCategory, setDataCategory] = useState([]);
+
+  useEffect(() => {
+    const category = async () => {
+      const response = await CategoryAPI.getCategory();
+      setDataCategory(response);
+    };
+    category();
+  }, []);
+  const colums = [
+    {
+      name: "No",
+      selector: (row, index) => ++index,
+    },
+    {
+      name: "Category",
+      selector: (row) => row.nama_category,
+    },
+    {
+      name: "Action",
+      selector: (row) => <button className="bg-red-300"> delete</button>,
+    },
+  ];
   return (
     <div className=" m-4">
       <div className="content-vehicle-list my-2 p-2 bg-white rounded-md">
@@ -10,15 +34,14 @@ const content = () => {
         </div>
       </div>
       <div className="content-category-list my-2 p-2 bg-white rounded-md">
-        <div className="header-category-list">
-          <h1>Category List</h1>
-        </div>
+        <Table
+          rows={dataCategory.category}
+          columns={colums}
+          title={"List Category"}
+        />
       </div>
     </div>
   );
-};
-const Dashboard = () => {
-  return <AdminLayout content={content()} />;
 };
 
 export default Dashboard;
