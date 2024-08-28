@@ -1,5 +1,5 @@
 export interface InputSpec {
-  type: "text" | "hidden" | "date" | "number" | "password";
+  type: "text" | "hidden" | "date" | "number" | "password" | "year";
   title: string;
   placeholder: string;
   isRequired: boolean;

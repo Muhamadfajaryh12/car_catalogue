@@ -1,17 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../../components/common/Input";
 import { useForm } from "react-hook-form";
+import CategoryAPI from "../../../api/CategoryAPI";
+import CatalogueAPI from "../../../api/CatalogueAPI";
 
 const CreateCatalogue = () => {
+  const [category, setCategory] = useState([]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const fetchCategory = async () => {
+    const response = await CategoryAPI.getCategory();
+    setCategory(response.category);
+  };
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
+  const saveCatalogue = async (data) => {
+    const formData = new FormData();
+    formData.append("nama_product", data.nama_product);
+    formData.append("harga", data.harga);
+    formData.append("files", data.gambar_product[0]); // Akses file pertama
+    formData.append("deskripsi_product", data.deskripsi_product);
+    formData.append("tahun_product", data.tahun_product);
+    formData.append("category_id", data.category);
+
+    // Panggil API untuk menyimpan katalog
+    const response = await CatalogueAPI.CreateCatalogue(formData);
+    console.log(response);
+  };
   return (
     <div className="w-1/2 mx-auto">
       <h2 className="text-2xl font-semibold ">Create Catalogue</h2>
-      <form action="" className="border-t-2 mt-2">
+      <form onSubmit={handleSubmit(saveCatalogue)} className="border-t-2 mt-2">
         <div className="grid grid-cols-2 gap-2 mt-2">
           <Input
             title="Name"
@@ -19,8 +45,8 @@ const CreateCatalogue = () => {
             isRequired={true}
             placeholder="name"
             register={register}
-            name={"name"}
-            error={errors.name}
+            name={"nama_product"}
+            error={errors.nama_product}
           />
           <Input
             title="Price"
@@ -28,29 +54,32 @@ const CreateCatalogue = () => {
             isRequired={true}
             placeholder="00000"
             register={register}
-            name={"price"}
-            error={errors.price}
+            name={"harga"}
+            error={errors.harga}
           />
         </div>
         <div className="grid grid-cols-2 gap-2 mt-2">
           <Input
             title="Date"
-            type="date"
+            type="number"
             isRequired={true}
             register={register}
-            name={"price"}
-            error={errors.price}
+            name={"tahun_product"}
+            error={errors.tahun_product}
           />
           <div className="">
             <div className=" mr-2 font-semibold">
               Category<span className="text-red-600">*</span>
             </div>
             <select
-              name=""
               id=""
               className="rounded-md h-10 p-1 w-full bg-gray-200 focus:outline-none"
+              {...register("category", { required: true })}
             >
               <option value="">Choose</option>
+              {category.map((item) => (
+                <option value={item.id}>{item.nama_category}</option>
+              ))}
             </select>
           </div>
         </div>
@@ -59,10 +88,16 @@ const CreateCatalogue = () => {
             Description<span className="text-red-600">*</span>
           </div>
           <textarea
-            name=""
             id=""
             className="rounded-md h-32 p-1 w-full bg-gray-200 focus:outline-none"
+            {...register("deskripsi_product", { required: true })}
           ></textarea>
+        </div>
+        <div className="">
+          <input
+            type="file"
+            {...register("gambar_product", { required: true })}
+          />{" "}
         </div>
         <button
           className="w-full bg-blue-500 text-white font-semibold p-2 mt-4 rounded-md"
