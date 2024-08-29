@@ -1,8 +1,9 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [active, setActive] = useState("");
   const Logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -10,14 +11,23 @@ const Sidebar = () => {
   const itemSidebar = [
     {
       title: "Dashboard",
+      link: "/dashboard",
     },
     {
       title: "Form Vehicle",
+      link: "/create_catalogue",
     },
     {
       title: "Form Category",
+      link: "/create_category",
     },
   ];
+
+  const handleActive = (param: string) => {
+    setActive(param);
+
+    console.log(active);
+  };
   return (
     <div className="w-1/4">
       <div className="header-sidebar">
@@ -32,10 +42,14 @@ const Sidebar = () => {
         <ul>
           {itemSidebar.map((item) => (
             <li
-              className="ml-10 mt-2 text-lg font-bold text-gray-400 hover:text-black"
+              className={` ml-10 mt-2 text-lg font-bold text-gray-400 hover:text-black ${
+                active == item.title ? "text-black" : ""
+              }`}
               style={{ letterSpacing: "3px" }}
+              onClick={() => handleActive(item.title)}
+              key={item.title}
             >
-              {item.title}
+              <Link to={item.link}>{item.title}</Link>
             </li>
           ))}
           <li

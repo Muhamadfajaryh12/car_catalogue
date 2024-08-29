@@ -1,7 +1,7 @@
-import React from "react";
 import Input from "../../../components/common/Input";
 import { useForm } from "react-hook-form";
 import CategoryAPI from "../../../api/CategoryAPI";
+import toast, { Toaster } from "react-hot-toast";
 
 const CreateCategory = () => {
   const {
@@ -10,14 +10,26 @@ const CreateCategory = () => {
     formState: { errors },
   } = useForm();
 
-  const createCatalogue = async (data) => {
-    const response = await CategoryAPI.CreateCategory({
-      nama_category: data.name,
+  const createCatalogue = (data) => {
+    const create = async () => {
+      const response = await CategoryAPI.CreateCategory({
+        nama_category: data.name,
+      });
+
+      console.log(response, data);
+      return response;
+    };
+    toast.promise(create(), {
+      loading: "Saving...",
+      success: (response) => <b>Success Saving</b>,
+      error: "Failed",
     });
-    console.log(response, data);
   };
+
   return (
     <div className="w-1/2 mx-auto mt-10 bg-white rounded-md p-2">
+      <Toaster />
+
       <h2 className="text-2xl font-semibold ">Create Catalogue</h2>
       <form
         onSubmit={handleSubmit(createCatalogue)}

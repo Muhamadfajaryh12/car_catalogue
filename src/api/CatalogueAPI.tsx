@@ -16,8 +16,14 @@ const CatalogueAPI = (() => {
     }
   };
 
+  const GetCatalogue = async () => {
+    const response = await axios.get(`${BASE_URL}s`);
+    const { data } = response;
+    return data;
+  };
   return {
     CreateCatalogue,
+    GetCatalogue,
   };
 })();
 

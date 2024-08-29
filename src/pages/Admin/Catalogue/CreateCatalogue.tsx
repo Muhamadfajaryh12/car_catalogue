@@ -35,7 +35,7 @@ const CreateCatalogue = () => {
     console.log(response);
   };
   return (
-    <div className="w-1/2 mx-auto">
+    <div className="w-1/2 mx-auto bg-white rounded-md p-2 mt-10">
       <h2 className="text-2xl font-semibold ">Create Catalogue</h2>
       <form onSubmit={handleSubmit(saveCatalogue)} className="border-t-2 mt-2">
         <div className="grid grid-cols-2 gap-2 mt-2">
