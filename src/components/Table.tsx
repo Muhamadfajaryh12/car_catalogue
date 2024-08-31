@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 
-const Table = ({ columns, rows, title }) => {
+const Table = ({ columns, rows, title, setLengthDelete }) => {
+  const handleSelect = (state) => {
+    setLengthDelete(state.selectedRows);
+  };
+
   return (
     <div>
       <DataTable
@@ -11,6 +15,7 @@ const Table = ({ columns, rows, title }) => {
         title={title}
         pagination
         selectableRows
+        onSelectedRowsChange={handleSelect}
       />
     </div>
   );
