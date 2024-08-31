@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Table from "../../components/Table";
 import CategoryAPI from "../../api/CategoryAPI";
 import CatalogueAPI from "../../api/CatalogueAPI";
@@ -10,13 +10,14 @@ const Dashboard = () => {
   const [dataCatalogue, setDataCatalogue] = useState([]);
   const [lengthDelete, setLengthDelete] = useState([]);
   console.log(lengthDelete);
-  const handleDelete = () => {
-    if (lengthDelete.length == 0) {
+  const handleDelete = useCallback(() => {
+    if (lengthDelete.length === 0) {
       toast.error("This didn't work.");
+    } else {
+      console.log("Items to delete:", lengthDelete);
+      // Lakukan aksi penghapusan di sini, misalnya panggil API untuk menghapus item
     }
-    console.log(lengthDelete);
-  };
-
+  }, [lengthDelete]);
   useEffect(() => {
     const category = async () => {
       const response = await CategoryAPI.getCategory();
@@ -90,7 +91,7 @@ const Dashboard = () => {
         ),
       },
     ],
-    []
+    [handleDelete]
   );
 
   return (
