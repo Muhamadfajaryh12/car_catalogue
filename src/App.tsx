@@ -10,6 +10,7 @@ import PrivateRoute from "./router/PrivateRoute";
 
 import PublicRoute from "./router/PublicRoute";
 import AdminLayout from "./components/layout/AdminLayout";
+import DetailCatalog from "./pages/DetailCatalog";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             />
           </Route>
           <Route path="/" element={<Catalog />} />
+          <Route path="/:id" element={<DetailCatalog />} />
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

@@ -27,31 +27,32 @@ const CreateCategory = () => {
   };
 
   return (
-    <div className="w-1/2 mx-auto mt-10 bg-white rounded-md p-2">
+    <div className="w-auto m-4  h-screen">
       <Toaster />
-
-      <h2 className="text-2xl font-semibold ">Create Catalogue</h2>
-      <form
-        onSubmit={handleSubmit(createCatalogue)}
-        className="border-t-2 mt-2"
-      >
-        <Input
-          type="text"
-          title="Name"
-          isRequired={true}
-          placeholder="name"
-          register={register}
-          name="name"
-          error={errors.name}
-        />
-
-        <button
-          className="w-full bg-blue-500 text-white font-semibold p-2 mt-4 rounded-md"
-          type="submit"
+      <div className="bg-white p-2 rounded-md ">
+        <h2 className="text-2xl font-semibold ">Create Catalogue</h2>
+        <form
+          onSubmit={handleSubmit(createCatalogue)}
+          className="border-t-2 mt-2"
         >
-          SAVE
-        </button>
-      </form>
+          <Input
+            type="text"
+            title="Name"
+            isRequired={true}
+            placeholder="name"
+            register={register}
+            name="name"
+            error={errors.name}
+          />
+
+          <button
+            className="w-full bg-blue-500 text-white font-semibold p-2 mt-4 rounded-md"
+            type="submit"
+          >
+            SAVE
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

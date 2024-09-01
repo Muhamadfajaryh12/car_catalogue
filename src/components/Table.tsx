@@ -14,6 +14,7 @@ const Table = ({ columns, rows, title, setLengthDelete }) => {
         fixedHeader
         title={title}
         pagination
+        paginationPerPage={5}
         selectableRows
         onSelectedRowsChange={handleSelect}
       />
